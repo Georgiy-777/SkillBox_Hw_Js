@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    width: 100%;
+    background-color: bisque;
+}
+
+.conteiner {
+    padding: 30px 50px;
+}
+
+.block-content {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.filter-block {
+    background-color: azure;
+    height: 100vh;
+    width: 350px;
+    padding: 20px;
+}
+
+.title {
+    margin-bottom: 45px;
+    font-size: 50px;
+}
+
+.product {
+    margin-bottom: 30px;
+}
+
+.product-inner {
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    padding: 10px;
+}
+
+.product img {
+    margin-bottom: 10px;
+}
+
+.card-block {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 50px;
+    width: 100vw;
+
+}
+
+.card {
+    height: 200px;
+    width: 120px;
+    padding: 20px;
+    border: 3px solid black;
+    background-color: #fff;
+
+}
+
+.form-control {
+    outline: none;
+    border: none;
+    background-color: burlywood;
+    padding: 5px 12px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    color: #000;
+    width: 250px;
+    height: 35px;
+    font-size: 20px;
+}
+
+.form-control__intput {
+    border: 1px solid #000;
+}
+
+.form-control__btn {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: max-content;
+    padding: 10px 20px;
+}
