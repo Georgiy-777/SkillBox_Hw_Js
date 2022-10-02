@@ -1,145 +1,152 @@
 const products = [
-    // XS / S / M / L / XL
-    // white black gray green red    
     {
         name: 'Basic T-shirt',
         color: 'white',
-        size: ' XS ',
+        size: ' XS',
         price: 50,
     },
     {
         name: 'Basic T-shirt',
         color: 'green',
-        size: ' S ',
+        size: 'S',
         price: 50,
 
     },
     {
         name: 'Cheap T-shirt',
         color: 'gray',
-        size: ' L ',
+        size: 'L ',
         price: 15,
 
     },
     {
         name: 'Basic T-shirt',
         color: 'gray',
-        size: ' XS ',
+        size: 'XS',
         price: 50,
     },
     {
         name: 'Basic T-shirt',
         color: 'gray',
-        size: ' S ',
+        size: 'S',
         price: 80,
 
     },
     {
         name: 'Cheap T-shirt',
         color: 'red',
-        size: ' M ',
+        size: 'M',
         price: 10,
 
     },
     {
         name: 'Basic T-shirt',
         color: 'white',
-        size: ' XS ',
+        size: 'XS',
         price: 50,
     },
     {
         name: 'Basic T-shirt',
         color: 'green',
-        size: ' S ',
+        size: 'S ',
         price: 50,
 
     },
     {
         name: 'Cheap T-shirt',
         color: 'white',
-        size: ' M ',
+        size: 'M',
         price: 15,
 
     },
     {
         name: 'Basic T-shirt',
         color: 'gray',
-        size: ' XS ',
+        size: ' XS',
         price: 70,
     },
     {
         name: 'Basic T-shirt',
         color: 'black',
-        size: ' XL ',
+        size: ' XL',
         price: 80,
 
     },
     {
         name: 'Cheap T-shirt',
         color: 'red',
-        size: ' M ',
+        size: ' M',
         price: 20,
 
     },
 
 ];
 
+const cardBlock = document.querySelector('.card-block')
 const filter = (arr, props, value) => {
     let result = [],
         copyArr = [...arr]
 
     for (const item of copyArr) {
-        if (String(item[props]).includes(value) || item['price'] <= value) result.push(item)
+
+        if ((String(item[props]).trim().includes(value) && String(item[props]).trim().indexOf(value) == 0) || item['price'] <= value) result.push(item)
     }
     return result
+    //
+}
+const sortedByPrice = (arr, prop, dir) => {
+    let prices = arr.sort((a, b) => {
+
+        if (!dir ? a[prop] < b[prop] : a[prop] > b[prop]) return -1
+
+    })
+    return prices
 
 }
 
-function renderApp(arr) {
-    const products = document.querySelector('.card-block')
-    products.innerHTML = ''
+const renderFuction = (arr) => {
+    cardBlock.innerHTML = ''
+    arr.forEach((item) => {
+        const card = document.createElement('div')
+        card.classList.add('card')
+        cardBlock.append(card)
+        card.innerHTML += `
+            <div>Товар: ${item.name}</div>
+            <div>Цвет: ${item.color}</div>
+            <div>Размер: ${item.size}</div>
+            <div>Стоимость: ${item.price}</div> `
+    })
+}
 
+renderFuction(products)
+
+
+document.getElementById("search-form").addEventListener('submit', function (e) {
+    e.preventDefault();
     const nameVal = document.getElementById('search-name').value
     const colorVal = document.getElementById('search-color').value
     const sizeVal = (document.getElementById('search-size').value)
     const priceVal = document.getElementById('search-price').value
-    let renderArr = [...arr]
+    let renderArr = [...products]
     if (nameVal !== '') renderArr = filter(renderArr, 'name', nameVal)
     if (colorVal !== '') renderArr = filter(renderArr, 'color', colorVal)
-    if (sizeVal !== '') renderArr = filter(renderArr, 'size', sizeVal)
+    if (sizeVal !== '') renderArr = filter(renderArr, 'size', sizeVal.toUpperCase())
     if (priceVal !== 0) renderArr = filter(renderArr, 'price', priceVal)
+    renderFuction(renderArr)
 
-
-
-
-    for (let prod of renderArr) {
-        const product = document.createElement('div')
-
-        const prodName = document.createElement('span')
-        const prodColor = document.createElement('span')
-        const prodSize = document.createElement('span')
-        const prodPrice = document.createElement('span')
-        prodName.textContent = `Товар: ${prod.name}`
-        prodColor.textContent = ` Цвет: ${prod.color} `
-        prodSize.textContent = ` Размер: ${prod.size} `
-        prodPrice.textContent = ` Стоимость: ${prod.price} `
-        product.append(prodName)
-        product.append(prodColor)
-        product.append(prodSize)
-        product.append(prodPrice)
-
-        product.classList.add('card')
-        products.append(product)
-
-    }
-
-
-
-}
-document.getElementById("search-form").addEventListener('submit', function (e) {
-    e.preventDefault();
-    renderApp(products)
-    console.log('click')
 
 })
-renderApp(products)
+
+
+document.querySelector(".sort-btn__priceup").addEventListener('click', function (e) {
+    const sortPriceArr = sortedByPrice(products, 'price', false)
+    renderFuction(sortPriceArr)
+})
+
+document.querySelector(".sort-btn__pricedown").addEventListener('click', function (e) {
+    const sortPriceArr = sortedByPrice(products, 'price', true)
+    renderFuction(sortPriceArr)
+})
+
+
+
